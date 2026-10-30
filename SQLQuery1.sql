@@ -1,0 +1,5 @@
+﻿ALTER TABLE Cart
+ADD CONSTRAINT FK_Cart_ProductId
+FOREIGN KEY (ProductId)
+REFERENCES Products(ProductId)
+ON DELETE CASCADE;

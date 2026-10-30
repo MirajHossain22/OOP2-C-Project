@@ -1,0 +1,24 @@
+# Visual Studio local state
+.vs/
+*.user
+*.suo
+*.sln.docstates
+
+# Generated build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+TestResults/
+
+# Local database files; publish schema and synthetic seed scripts instead
+*.mdf
+*.ldf
+*.bak
+
+# Local configuration and operating system files
+.env
+.env.*
+!.env.example
+Thumbs.db
+Desktop.ini
