@@ -22,3 +22,9 @@ TestResults/
 !.env.example
 Thumbs.db
 Desktop.ini
+
+# Web app and build outputs
+node_modules/
+dist/
+*.local
+
