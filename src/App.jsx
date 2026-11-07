@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import SocialProof from './components/SocialProof';
@@ -10,6 +10,7 @@ import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import CheckoutModal from './components/CheckoutModal';
+import SellerAuthModal from './components/SellerAuthModal';
 import Toast from './components/Toast';
 import { INITIAL_PRODUCTS } from './data/products';
 
@@ -23,6 +24,14 @@ export default function App() {
   ]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isSellerAuthOpen, setIsSellerAuthOpen] = useState(false);
+  const [isSellerAuthenticated, setIsSellerAuthenticated] = useState(() => {
+    try {
+      return localStorage.getItem('aura_seller_auth') === 'true';
+    } catch {
+      return false;
+    }
+  });
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [toast, setToast] = useState(null);
@@ -34,6 +43,31 @@ export default function App() {
     setTimeout(() => {
       setToast(null);
     }, 3200);
+  };
+
+  const handleSellerAuthenticated = (status) => {
+    setIsSellerAuthenticated(status);
+    setIsAdminMode(status);
+    try {
+      if (status) {
+        localStorage.setItem('aura_seller_auth', 'true');
+      } else {
+        localStorage.removeItem('aura_seller_auth');
+      }
+    } catch {
+      // Ignore storage errors in restricted contexts
+    }
+
+    if (status) {
+      setTimeout(() => {
+        document.getElementById('admin-console')?.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
+    }
+  };
+
+  const handleLockSeller = () => {
+    handleSellerAuthenticated(false);
+    showToast("Seller management locked.", "info");
   };
 
   const handleAddToCart = (product) => {
@@ -106,15 +140,24 @@ export default function App() {
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col justify-between selection:bg-teal-500/25 selection:text-teal-200">
       
-      {/* Sticky Pill Navigation */}
+      {/* Sticky Pill Navigation with Demo Key Access */}
       <Navbar
         cartCount={totalCartCount}
         onOpenCart={() => setIsCartOpen(true)}
         onScrollToCatalog={scrollToCatalog}
         isAdminMode={isAdminMode}
-        onToggleAdminMode={() => setIsAdminMode(!isAdminMode)}
+        onToggleAdminMode={() => {
+          if (!isSellerAuthenticated) {
+            setIsSellerAuthOpen(true);
+          } else {
+            setIsAdminMode(!isAdminMode);
+          }
+        }}
+        isSellerAuthenticated={isSellerAuthenticated}
+        onOpenSellerAuth={() => setIsSellerAuthOpen(true)}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
+        onNotify={showToast}
       />
 
       <main className="flex-1">
@@ -143,13 +186,16 @@ export default function App() {
         {/* 3-Step Workflow */}
         <HowItWorks onStartShopping={scrollToCatalog} />
 
-        {/* Live Admin Console Suite */}
+        {/* Live Admin & Seller Console Suite */}
         <AdminConsolePreview
           products={products}
           onUpdateProduct={handleUpdateProduct}
           onAddProduct={handleAddProduct}
           onDeleteProduct={handleDeleteProduct}
           onNotify={showToast}
+          isSellerAuthenticated={isSellerAuthenticated}
+          onOpenSellerAuth={() => setIsSellerAuthOpen(true)}
+          onLockSeller={handleLockSeller}
         />
 
         {/* FAQ Accordion */}
@@ -178,6 +224,14 @@ export default function App() {
         onClose={() => setIsCheckoutOpen(false)}
         cartItems={cartItems}
         onSuccess={handleCheckoutSuccess}
+      />
+
+      {/* Seller Demo Key Authorization Modal */}
+      <SellerAuthModal
+        isOpen={isSellerAuthOpen}
+        onClose={() => setIsSellerAuthOpen(false)}
+        onAuthenticate={handleSellerAuthenticated}
+        onNotify={showToast}
       />
 
       {/* Floating Toast Notification */}

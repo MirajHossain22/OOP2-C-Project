@@ -154,3 +154,4 @@ export default function Hero({ onExploreClick, heroProduct, onAddToCart }) {
     </section>
   );
 }
+

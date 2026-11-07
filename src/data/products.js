@@ -138,3 +138,4 @@ export const FAQS = [
     answer: "We offer a 30-day risk-free return window with complimentary return shipping labels, along with a comprehensive 2-year manufacturer warranty on all electronics and accessories."
   }
 ];
+
