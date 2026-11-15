@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Search, ShoppingBag, X, MessageSquarePlus, KeyRound, Check, Copy } from 'lucide-react';
+import { Search, ShoppingBag, X, MessageSquarePlus, ShieldCheck } from 'lucide-react';
 
 export default function Navbar({ 
   cartCount, 
@@ -9,16 +9,10 @@ export default function Navbar({
   onSearchChange, 
   theme, 
   onToggleTheme,
-  onOpenExtractor,
-  isSellerAuthenticated,
-  onOpenSellerAuth,
-  onNotify
+  onOpenExtractor
 }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [copiedKey, setCopiedKey] = useState(false);
-
-  const DEMO_KEY = 'demo-seller-key';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -26,48 +20,8 @@ export default function Navbar({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleCopyKey = (e) => {
-    e.stopPropagation();
-    navigator.clipboard?.writeText(DEMO_KEY);
-    setCopiedKey(true);
-    onNotify?.(`Demo Key copied: "${DEMO_KEY}"`, 'info');
-    setTimeout(() => setCopiedKey(false), 2000);
-  };
-
   return (
     <header className="fixed top-0 left-0 right-0 z-40 px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
-      {/* Top Demo Key Banner Bar */}
-      <div className="max-w-7xl mx-auto mb-1.5 flex items-center justify-between px-3 py-1 bg-[var(--primary-light)] border border-[var(--border-subtle)] rounded-full text-[11px] text-[var(--primary)] shadow-sm">
-        <div className="flex items-center gap-1.5 truncate">
-          <KeyRound className="w-3.5 h-3.5 shrink-0" />
-          <span className="font-bold text-[var(--text-primary)] hidden sm:inline">Seller Demo Key:</span>
-          <code className="bg-[var(--bg-surface)] px-1.5 py-0.5 rounded text-[var(--primary)] font-mono font-bold text-[10px] sm:text-xs border border-[var(--border-subtle)]">
-            {DEMO_KEY}
-          </code>
-          <span className="text-[var(--text-muted)] text-[10px] hidden md:inline">• Paste this key to unlock live store admin</span>
-        </div>
-
-        <div className="flex items-center gap-2 shrink-0">
-          <button
-            onClick={handleCopyKey}
-            className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-[var(--primary)] hover:underline px-2 py-0.5 rounded-full"
-            title="Copy demo key to clipboard"
-          >
-            {copiedKey ? <Check className="w-3 h-3 text-emerald-600" /> : <Copy className="w-3 h-3" />}
-            <span>{copiedKey ? 'Copied' : 'Copy Key'}</span>
-          </button>
-          
-          {onOpenSellerAuth && (
-            <button
-              onClick={onOpenSellerAuth}
-              className="text-[10px] font-bold text-[var(--text-primary)] hover:text-[var(--primary)] underline underline-offset-2"
-            >
-              {isSellerAuthenticated ? 'Admin Active' : 'Unlock Seller'}
-            </button>
-          )}
-        </div>
-      </div>
-
       <div className={`mx-auto max-w-7xl rounded-2xl transition-all duration-300 ${
         isScrolled 
           ? 'glass-panel px-3 sm:px-6 py-2 shadow-lg border border-[var(--border-subtle)]' 

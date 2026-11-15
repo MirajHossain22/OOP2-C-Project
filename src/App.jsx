@@ -11,7 +11,6 @@ import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import CheckoutModal from './components/CheckoutModal';
 import FCommerceExtractor from './components/FCommerceExtractor';
-import SellerAuthModal from './components/SellerAuthModal';
 import Toast from './components/Toast';
 import Chatbot from './components/Chatbot';
 import { INITIAL_PRODUCTS } from './data/products';
@@ -27,14 +26,6 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [isExtractorOpen, setIsExtractorOpen] = useState(false);
-  const [isSellerAuthOpen, setIsSellerAuthOpen] = useState(false);
-  const [isSellerAuthenticated, setIsSellerAuthenticated] = useState(() => {
-    try {
-      return localStorage.getItem('gl_seller_auth') === 'true';
-    } catch {
-      return false;
-    }
-  });
   const [searchQuery, setSearchQuery] = useState('');
   const [toast, setToast] = useState(null);
   const [theme, setTheme] = useState(() => {
@@ -52,30 +43,6 @@ export default function App() {
     setTimeout(() => {
       setToast(null);
     }, 3200);
-  };
-
-  const handleSellerAuthenticated = (status) => {
-    setIsSellerAuthenticated(status);
-    try {
-      if (status) {
-        localStorage.setItem('gl_seller_auth', 'true');
-      } else {
-        localStorage.removeItem('gl_seller_auth');
-      }
-    } catch {
-      // storage safety
-    }
-
-    if (status) {
-      setTimeout(() => {
-        document.getElementById('admin-console')?.scrollIntoView({ behavior: 'smooth' });
-      }, 150);
-    }
-  };
-
-  const handleLockSeller = () => {
-    handleSellerAuthenticated(false);
-    showToast("Seller management console locked.", "info");
   };
 
   const handleAddToCart = (product) => {
@@ -162,7 +129,7 @@ export default function App() {
   return (
     <div data-theme={theme} className="theme-root min-h-screen flex flex-col justify-between selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300">
       
-      {/* Navigation with Theme & Demo Key Access */}
+      {/* Navigation with Theme & F-Commerce Parser Trigger */}
       <Navbar
         cartCount={totalCartCount}
         onOpenCart={() => setIsCartOpen(true)}
@@ -172,9 +139,6 @@ export default function App() {
         theme={theme}
         onToggleTheme={toggleTheme}
         onOpenExtractor={() => setIsExtractorOpen(true)}
-        isSellerAuthenticated={isSellerAuthenticated}
-        onOpenSellerAuth={() => setIsSellerAuthOpen(true)}
-        onNotify={showToast}
       />
 
       <main className="flex-1">
@@ -205,16 +169,13 @@ export default function App() {
         {/* 3-Step Fulfillment Pipeline */}
         <HowItWorks onStartShopping={scrollToCatalog} />
 
-        {/* Live Seller & Management Suite (Unlocked via demo-seller-key) */}
+        {/* Live Seller & Management Suite */}
         <AdminConsolePreview
           products={products}
           onUpdateProduct={handleUpdateProduct}
           onAddProduct={handleAddProduct}
           onDeleteProduct={handleDeleteProduct}
           onNotify={showToast}
-          isSellerAuthenticated={isSellerAuthenticated}
-          onOpenSellerAuth={() => setIsSellerAuthOpen(true)}
-          onLockSeller={handleLockSeller}
         />
 
         {/* FAQ Accordion */}
@@ -251,14 +212,6 @@ export default function App() {
         onClose={() => setIsExtractorOpen(false)}
         products={products}
         onApplyOrder={handleApplyExtractedOrder}
-      />
-
-      {/* Seller Demo Key Authorization Modal */}
-      <SellerAuthModal
-        isOpen={isSellerAuthOpen}
-        onClose={() => setIsSellerAuthOpen(false)}
-        onAuthenticate={handleSellerAuthenticated}
-        onNotify={showToast}
       />
 
       {/* Floating Toast Notification */}

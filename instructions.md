@@ -30,13 +30,6 @@ Use Framer Motion or Tailwind transitions to add purposeful micro-animations tha
 
 ---
 
-## Essential Credentials & Demo Access
-* **Demo Seller Access Key:** `demo-seller-key`
-  * Always active and verified via `src/components/SellerAuthModal.jsx`.
-  * Allows reviewers and evaluators to unlock the live seller management console, order fulfillment, and product catalog editor without requiring a separate database deployment.
-
----
-
 ## Execution Protocol
 When asked to build or modify a component, you will:
 1. Briefly list the layout strategy (**Hallmark**) and typography/spacing rules (**Impeccable**) you are applying.
