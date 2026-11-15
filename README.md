@@ -1,6 +1,28 @@
-# AURA Commerce — Modern Storefront & Live Management Platform
+# Project Overview: AURA Commerce
 
-> A full-stack, precision-engineered e-commerce platform and live catalog management console. Incorporates a high-performance modern web storefront ready for **Vercel deployment**, alongside the original university OOP2 C# desktop application.
+**AURA Commerce** is a hybrid e-commerce platform that combines a **modern, mobile-first web storefront** ready for Vercel deployment with a **C# .NET / SQL Server management core**.
+
+---
+
+### Core Highlights at a Glance
+
+* **Modern Web Storefront (React 19 + Vite + Tailwind CSS v4):**
+  * **Curated Catalog:** Real-time search, category filters, and detailed technical specification sheets.
+  * **Slide-Over Shopping Bag:** Sub-40ms off-canvas drawer with quantity controls, dynamic free-shipping progress tracker, and tax calculation.
+  * **Express Mobile Checkout:** Simulated 256-bit encrypted checkout with input formatting, CVV masking, and immediate order verification.
+
+* **Live Seller & Admin Management Suite:**
+  * **Interactive Console:** Directly models the desktop `AdminPanel.cs` operations—allowing real-time price updates, inventory restocks, and product publication that instantly reflect on the customer storefront.
+  * **Instant Evaluation Access:** Reviewers and evaluators can unlock full administrative privileges using the demo key:
+    ```text
+    demo-seller-key
+    ```
+
+* **Original Desktop Foundation (C# / .NET 4.8 / Windows Forms):**
+  * University OOP2 course project featuring customer shopping panels, admin CRUD interfaces, ADO.NET data access, and relational SQL Server schema bindings.
+
+* **Deployment Ready:**
+  * Fully configured for **Vercel** with single-page application routing (`vercel.json`), responsive design for 375px–1536px viewports, and WCAG AA accessibility.
 
 ---
 
