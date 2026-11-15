@@ -10,49 +10,49 @@ export default function FAQ() {
   };
 
   return (
-    <section id="faq" className="py-24 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="faq" className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
       
       {/* Header */}
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-semibold text-teal-300">
-          <HelpCircle className="w-3.5 h-3.5 text-teal-400" />
-          <span>Clarity & Support</span>
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--primary-light)] text-[var(--primary)] text-xs font-bold">
+          <HelpCircle className="w-3.5 h-3.5" />
+          <span>Support & Transparency</span>
         </div>
-        <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          Frequently Answered Questions
+        <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[var(--text-primary)] tracking-tight">
+          Frequently Asked Questions
         </h2>
-        <p className="text-sm text-neutral-400">
-          Everything you need to know about our logistics, inventory synchronization, and return policies.
+        <p className="text-xs sm:text-sm text-[var(--text-muted)]">
+          Everything you need to know about delivery timelines, official warranties, and Cash on Delivery.
         </p>
       </div>
 
       {/* Accordion List */}
-      <div className="space-y-3.5">
+      <div className="space-y-3">
         {FAQS.map((faq, idx) => {
           const isOpen = openIndex === idx;
 
           return (
             <div
               key={idx}
-              className="glass-card rounded-2xl border border-white/[0.08] overflow-hidden transition-all duration-200"
+              className="surface-card rounded-2xl border border-[var(--border-subtle)] overflow-hidden transition-all duration-200"
             >
               <button
                 onClick={() => toggleIndex(idx)}
-                className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-400"
+                className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-focus)] min-h-[44px]"
                 aria-expanded={isOpen}
               >
-                <span className="font-display text-sm sm:text-base font-bold text-white">
+                <span className="font-display text-sm sm:text-base font-bold text-[var(--text-primary)]">
                   {faq.question}
                 </span>
-                <span className={`p-1.5 rounded-full bg-white/[0.05] text-neutral-300 transition-transform duration-200 shrink-0 ${
-                  isOpen ? 'rotate-180 bg-teal-500/20 text-teal-300' : ''
+                <span className={`p-1.5 rounded-full bg-[var(--bg-surface-elevated)] text-[var(--text-secondary)] transition-transform duration-200 shrink-0 ${
+                  isOpen ? 'rotate-180 bg-[var(--primary-light)] text-[var(--primary)]' : ''
                 }`}>
                   <ChevronDown className="w-4 h-4" />
                 </span>
               </button>
 
               {isOpen && (
-                <div className="px-5 sm:px-6 pb-5 sm:pb-6 text-xs sm:text-sm text-neutral-300 leading-relaxed border-t border-white/[0.04] pt-3 animate-in fade-in duration-200">
+                <div className="px-4 sm:px-5 pb-5 text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed border-t border-[var(--border-subtle)] pt-3 animate-in fade-in duration-150">
                   {faq.answer}
                 </div>
               )}
@@ -64,4 +64,3 @@ export default function FAQ() {
     </section>
   );
 }
-

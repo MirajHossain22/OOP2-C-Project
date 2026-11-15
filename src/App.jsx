@@ -10,8 +10,10 @@ import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import CartDrawer from './components/CartDrawer';
 import CheckoutModal from './components/CheckoutModal';
+import FCommerceExtractor from './components/FCommerceExtractor';
 import SellerAuthModal from './components/SellerAuthModal';
 import Toast from './components/Toast';
+import Chatbot from './components/Chatbot';
 import { INITIAL_PRODUCTS } from './data/products';
 
 export default function App() {
@@ -24,19 +26,26 @@ export default function App() {
   ]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [isExtractorOpen, setIsExtractorOpen] = useState(false);
   const [isSellerAuthOpen, setIsSellerAuthOpen] = useState(false);
   const [isSellerAuthenticated, setIsSellerAuthenticated] = useState(() => {
     try {
-      return localStorage.getItem('aura_seller_auth') === 'true';
+      return localStorage.getItem('gl_seller_auth') === 'true';
     } catch {
       return false;
     }
   });
-  const [isAdminMode, setIsAdminMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [toast, setToast] = useState(null);
+  const [theme, setTheme] = useState(() => {
+    try { return localStorage.getItem('gadgetloop-theme') || 'light'; } catch { return 'light'; }
+  });
 
   const catalogRef = useRef(null);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
@@ -47,15 +56,14 @@ export default function App() {
 
   const handleSellerAuthenticated = (status) => {
     setIsSellerAuthenticated(status);
-    setIsAdminMode(status);
     try {
       if (status) {
-        localStorage.setItem('aura_seller_auth', 'true');
+        localStorage.setItem('gl_seller_auth', 'true');
       } else {
-        localStorage.removeItem('aura_seller_auth');
+        localStorage.removeItem('gl_seller_auth');
       }
     } catch {
-      // Ignore storage errors in restricted contexts
+      // storage safety
     }
 
     if (status) {
@@ -67,7 +75,7 @@ export default function App() {
 
   const handleLockSeller = () => {
     handleSellerAuthenticated(false);
-    showToast("Seller management locked.", "info");
+    showToast("Seller management console locked.", "info");
   };
 
   const handleAddToCart = (product) => {
@@ -92,6 +100,12 @@ export default function App() {
     );
 
     showToast(`Added ${product.name} to your bag`);
+  };
+
+  const handleApplyExtractedOrder = (extractedOrder) => {
+    handleAddToCart(extractedOrder);
+    setIsCartOpen(true);
+    showToast(`Order details parsed for ${extractedOrder.customerDetails?.name || 'customer'}!`, 'success');
   };
 
   const handleUpdateCartQuantity = (id, newQty) => {
@@ -137,38 +151,42 @@ export default function App() {
 
   const totalCartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
 
+  const toggleTheme = () => {
+    setTheme((current) => {
+      const next = current === 'light' ? 'dark' : 'light';
+      try { localStorage.setItem('gadgetloop-theme', next); } catch { /* storage unavailable */ }
+      return next;
+    });
+  };
+
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col justify-between selection:bg-teal-500/25 selection:text-teal-200">
+    <div data-theme={theme} className="theme-root min-h-screen flex flex-col justify-between selection:bg-emerald-500/20 selection:text-emerald-700 dark:selection:text-emerald-300">
       
-      {/* Sticky Pill Navigation with Demo Key Access */}
+      {/* Navigation with Theme & Demo Key Access */}
       <Navbar
         cartCount={totalCartCount}
         onOpenCart={() => setIsCartOpen(true)}
         onScrollToCatalog={scrollToCatalog}
-        isAdminMode={isAdminMode}
-        onToggleAdminMode={() => {
-          if (!isSellerAuthenticated) {
-            setIsSellerAuthOpen(true);
-          } else {
-            setIsAdminMode(!isAdminMode);
-          }
-        }}
-        isSellerAuthenticated={isSellerAuthenticated}
-        onOpenSellerAuth={() => setIsSellerAuthOpen(true)}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+        onOpenExtractor={() => setIsExtractorOpen(true)}
+        isSellerAuthenticated={isSellerAuthenticated}
+        onOpenSellerAuth={() => setIsSellerAuthOpen(true)}
         onNotify={showToast}
       />
 
       <main className="flex-1">
-        {/* Hero Section */}
+        {/* Editorial Hero Section */}
         <Hero
           onExploreClick={scrollToCatalog}
           heroProduct={products[0]}
           onAddToCart={handleAddToCart}
+          onOpenExtractor={() => setIsExtractorOpen(true)}
         />
 
-        {/* Social Proof & Trust Metrics */}
+        {/* Social Proof & Metrics */}
         <SocialProof />
 
         {/* Curated Product Catalog */}
@@ -178,15 +196,16 @@ export default function App() {
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           catalogRef={catalogRef}
+          onOpenExtractor={() => setIsExtractorOpen(true)}
         />
 
-        {/* Bento Features Grid */}
+        {/* Bento Platform Features */}
         <BentoFeatures />
 
-        {/* 3-Step Workflow */}
+        {/* 3-Step Fulfillment Pipeline */}
         <HowItWorks onStartShopping={scrollToCatalog} />
 
-        {/* Live Admin & Seller Console Suite */}
+        {/* Live Seller & Management Suite (Unlocked via demo-seller-key) */}
         <AdminConsolePreview
           products={products}
           onUpdateProduct={handleUpdateProduct}
@@ -205,7 +224,7 @@ export default function App() {
       {/* Modern Footer */}
       <Footer onNotify={showToast} />
 
-      {/* Off-canvas Cart Drawer */}
+      {/* Mobile-first Cart Drawer */}
       <CartDrawer
         isOpen={isCartOpen}
         onClose={() => setIsCartOpen(false)}
@@ -226,6 +245,14 @@ export default function App() {
         onSuccess={handleCheckoutSuccess}
       />
 
+      {/* F-Commerce Message / Order Extractor */}
+      <FCommerceExtractor
+        isOpen={isExtractorOpen}
+        onClose={() => setIsExtractorOpen(false)}
+        products={products}
+        onApplyOrder={handleApplyExtractedOrder}
+      />
+
       {/* Seller Demo Key Authorization Modal */}
       <SellerAuthModal
         isOpen={isSellerAuthOpen}
@@ -236,6 +263,9 @@ export default function App() {
 
       {/* Floating Toast Notification */}
       <Toast toast={toast} onClose={() => setToast(null)} />
+
+      {/* Chatbot Assistant */}
+      <Chatbot />
 
     </div>
   );

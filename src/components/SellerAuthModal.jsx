@@ -150,3 +150,4 @@ export default function SellerAuthModal({
     </div>
   );
 }
+

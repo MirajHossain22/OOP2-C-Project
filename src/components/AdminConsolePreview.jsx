@@ -17,6 +17,7 @@ import {
   LogOut,
   Sparkles
 } from 'lucide-react';
+import { formatBDT } from '../data/products';
 
 export default function AdminConsolePreview({ 
   products, 
@@ -279,7 +280,7 @@ export default function AdminConsolePreview({
                                 className="w-20 bg-neutral-900 border border-teal-400 rounded px-2 py-1 text-white text-xs"
                               />
                             ) : (
-                              `$${item.price}`
+                              formatBDT(item.price)
                             )}
                           </td>
 

@@ -1,141 +1,27 @@
+export const formatBDT = (value) => `৳${new Intl.NumberFormat('en-BD').format(value)}`;
+
 export const INITIAL_PRODUCTS = [
-  {
-    id: 1,
-    name: "Apex Precision Chronometer",
-    category: "Accessories",
-    price: 349,
-    originalPrice: 420,
-    rating: 4.9,
-    reviewsCount: 148,
-    stock: 14,
-    badge: "Bestseller",
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80",
-    description: "Aircraft-grade titanium chassis with sapphire glass, 100m water resistance, and automatic movement.",
-    specs: ["Titanium Grade 5", "Sapphire Crystal", "48h Reserve"]
-  },
-  {
-    id: 2,
-    name: "AeroPulse Studio ANC Headphones",
-    category: "Electronics",
-    price: 289,
-    originalPrice: 349,
-    rating: 4.8,
-    reviewsCount: 230,
-    stock: 22,
-    badge: "Editor's Pick",
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=800&q=80",
-    description: "Active acoustic cancellation with 40mm beryllium drivers, spatial audio tracking, and 45h playtime.",
-    specs: ["Active Noise Canceling", "45h Battery", "Lossless Bluetooth 5.4"]
-  },
-  {
-    id: 3,
-    name: "Vanguard Minimalist Leather Pack",
-    category: "Footwear & Bags",
-    price: 195,
-    originalPrice: 240,
-    rating: 4.9,
-    reviewsCount: 92,
-    stock: 8,
-    badge: "Low Stock",
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=800&q=80",
-    description: "Handcrafted full-grain Italian leather with dedicated 16-inch padded laptop sleeve and magnetic Fidlock clasps.",
-    specs: ["Full-Grain Leather", "Fidlock Magnetic", "Water-Repellent"]
-  },
-  {
-    id: 4,
-    name: "Strata Lumina Desk Lamp",
-    category: "Home & Office",
-    price: 160,
-    originalPrice: 195,
-    rating: 4.7,
-    reviewsCount: 76,
-    stock: 35,
-    badge: "New Release",
-    image: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80",
-    description: "Circadian rhythm adaptive lighting, anodized matte aluminum armature with touchless gesture dimming.",
-    specs: ["98+ CRI LED", "Gesture Dimming", "Qi 15W Base"]
-  },
-  {
-    id: 5,
-    name: "Helios Mechanical Keyboard",
-    category: "Electronics",
-    price: 215,
-    originalPrice: 260,
-    rating: 4.9,
-    reviewsCount: 312,
-    stock: 19,
-    badge: "Trending",
-    image: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=800&q=80",
-    description: "Gasket-mounted hot-swappable tactile switches, CNC milled brass weight plate, and PBT dye-sub keycaps.",
-    specs: ["Gasket Mount", "Hot-Swap PCB", "Wireless 2.4G & BT"]
-  },
-  {
-    id: 6,
-    name: "Equinox Matte Ceramic Vessel Set",
-    category: "Home & Office",
-    price: 85,
-    originalPrice: 110,
-    rating: 4.6,
-    reviewsCount: 54,
-    stock: 42,
-    badge: "Popular",
-    image: "https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?auto=format&fit=crop&w=800&q=80",
-    description: "Double-walled artisanal ceramic brew set with dripper, heat retention glaze, and walnut coaster.",
-    specs: ["Hand-Thrown Stoneware", "Thermal Retention", "Walnut Trim"]
-  }
+  { id: 1, name: 'Soundcore R50i TWS Earbuds', category: 'TWS Earbuds', price: 1699, originalPrice: 2199, rating: 4.7, reviewsCount: 4820, stock: 24, badge: 'Amazon bestseller', image: 'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=900&q=85', description: 'Big bass, AI-clear calls, and up to 30 hours of playtime in a pocket-friendly case.', specs: ['30h playtime', 'AI call clarity', 'IPX5 water resistant'] },
+  { id: 2, name: 'JBL Tune 510BT Wireless Headphones', category: 'Wireless Headphones', price: 4290, originalPrice: 5490, rating: 4.8, reviewsCount: 3160, stock: 18, badge: 'Top rated', image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=900&q=85', description: 'Lightweight wireless headphones with JBL Pure Bass and a full 40-hour battery.', specs: ['40h battery', 'JBL Pure Bass', 'Fast pair Bluetooth'] },
+  { id: 3, name: 'Maono AU-A04 USB Microphone Kit', category: 'Microphones', price: 6890, originalPrice: 7990, rating: 4.6, reviewsCount: 1280, stock: 11, badge: 'Creator pick', image: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=900&q=85', description: 'A plug-and-play condenser mic kit for podcasts, gaming, streaming, and online classes.', specs: ['USB plug & play', 'Shock mount included', 'Cardioid pickup'] },
+  { id: 4, name: 'AOC 24G2SP 24-inch Gaming Monitor', category: 'Monitors', price: 23900, originalPrice: 26900, rating: 4.8, reviewsCount: 874, stock: 7, badge: 'Low stock', image: 'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?auto=format&fit=crop&w=900&q=85', description: 'Fast 165Hz IPS gaming monitor with sharp Full HD detail, adaptive sync, and ergonomic stand.', specs: ['165Hz refresh rate', '1ms response', 'IPS Full HD panel'] },
+  { id: 5, name: 'Baseus i-Wok2 Monitor Light Bar', category: 'Monitor Lights', price: 5490, originalPrice: 6490, rating: 4.5, reviewsCount: 620, stock: 16, badge: 'New arrival', image: 'https://images.unsplash.com/photo-1534281678017-9c3b5b9a1f04?auto=format&fit=crop&w=900&q=85', description: 'Glare-free desk lighting with adjustable colour temperature and a wireless brightness remote.', specs: ['USB powered', 'Auto-dimming', 'Eye-care light'] },
+  { id: 6, name: 'Anker 323 33W Dual-Port Charger', category: 'Power & Chargers', price: 2290, originalPrice: 2890, rating: 4.8, reviewsCount: 2140, stock: 31, badge: 'Best value', image: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=900&q=85', description: 'Compact fast charger for phones, earbuds, tablets, and everyday travel.', specs: ['33W fast charge', 'USB-C + USB-A', 'MultiProtect safety'] },
+  { id: 7, name: 'Logitech K380s Bluetooth Keyboard', category: 'Desk Setup', price: 4350, originalPrice: 4990, rating: 4.7, reviewsCount: 980, stock: 14, badge: 'Popular', image: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?auto=format&fit=crop&w=900&q=85', description: 'Slim multi-device keyboard with quiet typing and a comfortable compact layout.', specs: ['3-device switching', 'Quiet typing', '24-month battery'] },
+  { id: 8, name: 'UGREEN 100W GaN Pro Charger', category: 'Power & Chargers', price: 7990, originalPrice: 8990, rating: 4.8, reviewsCount: 760, stock: 9, badge: 'Trending', image: 'https://images.unsplash.com/photo-1625842268584-8f3296236761?auto=format&fit=crop&w=900&q=85', description: 'One charger for your laptop, phone, tablet, and accessories with four smart ports.', specs: ['100W USB-C PD', '4 ports', 'Travel-ready GaN'] }
 ];
 
-export const CATEGORIES = ["All Items", "Electronics", "Accessories", "Footwear & Bags", "Home & Office"];
+export const CATEGORIES = ['All Items', 'TWS Earbuds', 'Wireless Headphones', 'Microphones', 'Monitors', 'Monitor Lights', 'Power & Chargers', 'Desk Setup'];
 
 export const TESTIMONIALS = [
-  {
-    id: 1,
-    quote: "The checkout took less than 15 seconds, and the Apex Chronometer was at my door in two days. The design aesthetic is leagues above any standard shop.",
-    author: "Elena Rostova",
-    role: "Architect & Industrial Designer",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80",
-    verified: true,
-    rating: 5,
-    itemPurchased: "Apex Precision Chronometer"
-  },
-  {
-    id: 2,
-    quote: "Switching from messy spreadsheet inventory to this integrated live manager and customer front saved our team 12 hours every week.",
-    author: "Marcus Sterling",
-    role: "Founder, Sterling Goods",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80",
-    verified: true,
-    rating: 5,
-    itemPurchased: "AeroPulse Studio ANC"
-  },
-  {
-    id: 3,
-    quote: "The tactile feel of the interface matches the physical quality of the products. Instant cart, micro-animations, and zero clutter.",
-    author: "Devon Chen",
-    role: "Creative Director",
-    avatar: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80",
-    verified: true,
-    rating: 5,
-    itemPurchased: "Helios Mechanical Keyboard"
-  }
+  { id: 1, quote: 'The R50i arrived quickly and the price was exactly what I expected. The filters made it easy to compare options.', author: 'Nusrat Jahan', role: 'Verified buyer · Dhaka', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80', verified: true, rating: 5, itemPurchased: 'Soundcore R50i' },
+  { id: 2, quote: 'I found the exact monitor light for my home office. Checkout was simple and delivery updates were clear.', author: 'Tanvir Ahmed', role: 'Verified buyer · Chattogram', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80', verified: true, rating: 5, itemPurchased: 'Monitor Light Bar' },
+  { id: 3, quote: 'The Maono kit was well packed and sounds great for calls. GadgetLoop feels much more trustworthy than random listings.', author: 'Rafi Rahman', role: 'Verified buyer · Sylhet', avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80', verified: true, rating: 5, itemPurchased: 'Maono AU-A04' }
 ];
 
 export const FAQS = [
-  {
-    question: "How does the live inventory and admin synchronization operate?",
-    answer: "Products updated in the Admin Console (price, title, image, or stock counts) reflect across the customer storefront instantly in real-time without requiring a page reload."
-  },
-  {
-    question: "What payment methods and checkout validations are simulated?",
-    answer: "The checkout flow incorporates live Luhn algorithm card validation, expiry format checking, CVV masking, and immediate confirmation with instant transaction reference generation."
-  },
-  {
-    question: "How fast is shipping, and how do I track my order?",
-    answer: "All orders placed before 3:00 PM EST ship same-day via express insured freight. Real-time GPS tracking and SMS milestone alerts are provided upon order confirmation."
-  },
-  {
-    question: "What is your return and warranty guarantee?",
-    answer: "We offer a 30-day risk-free return window with complimentary return shipping labels, along with a comprehensive 2-year manufacturer warranty on all electronics and accessories."
-  }
+  { question: 'Are these products genuine?', answer: 'Yes. We source branded gadgets from verified distributors and provide a purchase invoice with every order.' },
+  { question: 'How much is delivery in Bangladesh?', answer: 'Delivery is free inside Dhaka on orders above ৳2,000. Outside Dhaka, delivery starts from ৳80 and is shown before payment.' },
+  { question: 'How long does delivery take?', answer: 'Dhaka orders usually arrive within 1–2 working days. Outside Dhaka usually takes 2–4 working days.' },
+  { question: 'What is the warranty policy?', answer: 'Most branded electronics include a 6–12 month seller or brand warranty. The exact warranty is listed on each product card.' }
 ];
-
